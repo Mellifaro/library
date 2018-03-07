@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Created by Viktor Skapoushchenko on 06.02.2018.
+ */
 @Entity
 @Table(name = "books")
 @AllArgsConstructor

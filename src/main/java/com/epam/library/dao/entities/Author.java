@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Created by Viktor Skapoushchenko on 06.02.2018.
+ */
 @Entity
 @Table(name = "authors")
 @AllArgsConstructor
