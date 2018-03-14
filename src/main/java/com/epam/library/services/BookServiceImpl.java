@@ -22,9 +22,17 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private AuthorService authorService;
 
+    @Autowired
+    private ValidationService validationService;
+
     @Override
-    public BookDTO get(Long id) {
-        return new BookDTO(bookRepository.findOne(id));
+    public Book get(Long id) {
+        return bookRepository.findOne(id);
+    }
+
+    @Override
+    public BookDTO getBookDto(Long id) {
+        return new BookDTO(get(id));
     }
 
     @Override
@@ -35,8 +43,18 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book save(Book author) {
-        return bookRepository.save(author);
+    public BookDTO save(BookDTO bookDTO) {
+        Book book = new Book();
+        bookRepository.save(updateFromDto(bookDTO, book));
+        return bookDTO;
+    }
+
+
+    @Override
+    public BookDTO update(BookDTO bookDTO) {
+        Book book = get(bookDTO.getId());
+        bookRepository.save(updateFromDto(bookDTO, book));
+        return bookDTO;
     }
 
     @Override
@@ -44,17 +62,16 @@ public class BookServiceImpl implements BookService{
         bookRepository.delete(id);
     }
 
-    @Override
-    public Book update(Book author) {
-        return bookRepository.save(author);
-    }
-
-    @Override
-    public List<BookDTO> getByAuthor(Long authorId) {
-        Author author = authorService.getWithBooks(authorId);
-        return author.getBooks().stream()
-                                .map(BookDTO::new)
-                                .collect(Collectors.toList());
-
+    private Book updateFromDto(BookDTO bookDTO, Book book){
+        Author author = authorService.getByName(bookDTO.getAuthor());
+        if(!validationService.isValidBookTitle(bookDTO.getTitle())){
+            throw new IllegalStateException("Book title \"" + bookDTO.getTitle() + "\" is not valid");
+        }
+        if(author == null){
+            throw new IllegalStateException("Author can not be null");
+        }
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(author);
+        return book;
     }
 }

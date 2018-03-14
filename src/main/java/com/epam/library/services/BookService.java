@@ -10,15 +10,15 @@ import java.util.Set;
  * Created by Viktor Skapoushchenko on 07.02.2018.
  */
 public interface BookService {
-    BookDTO get(Long id);
+    Book get(Long id);
+
+    BookDTO getBookDto(Long id);
 
     List<BookDTO> getAll();
 
-    Book save(Book author);
+    BookDTO save(BookDTO bookDTO);
 
     void delete(Long id);
 
-    Book update(Book author);
-
-    List<BookDTO> getByAuthor(Long authorId);
+    BookDTO update(BookDTO bookDTO);
 }

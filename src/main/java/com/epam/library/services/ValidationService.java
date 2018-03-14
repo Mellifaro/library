@@ -6,16 +6,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ValidationService {
     @Value("${author.name.pattern}")
-    private static String authorPattern;
+    private String authorPattern;
 
     @Value("${book.name.pattern}")
-    private static String bookPattern;
+    private String bookPattern;
 
-    public static boolean validateAuthorName(String name){
+    public boolean isValidAuthorName(String name){
         return name.matches(authorPattern);
     }
 
-    public static boolean validateBookTitle(String title){
+    public boolean isValidBookTitle(String title){
         return title.matches(bookPattern);
     }
 }

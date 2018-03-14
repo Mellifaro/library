@@ -11,17 +11,19 @@ import java.util.List;
  */
 public interface AuthorService {
 
-    AuthorDTO get(Long id);
+    Author get(Long id);
+
+    AuthorDTO getAuthorDTO(Long id);
 
     List<AuthorDTO> getAll();
 
-    Book addBookToAuthor(Long authorId, Long bookId);
+    void addBookToAuthor(Long authorId, Long bookId);
 
-    Author getWithBooks(Long id);
-
-    Author save(Author author);
+    AuthorDTO save(AuthorDTO author);
 
     void delete(Long id);
 
-    Author update(Author author);
+    AuthorDTO update(AuthorDTO author);
+
+    Author getByName(String author);
 }

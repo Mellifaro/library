@@ -15,23 +15,23 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<BookDTO> getAll(){
         return bookService.getAll();
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public BookDTO getById(@PathVariable Long id){
-        return bookService.get(id);
+        return bookService.getBookDto(id);
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
-    public Book addBook(@RequestBody Book book){
+    public BookDTO addBook(@RequestBody BookDTO book){
         return bookService.save(book);
     }
 
     @RequestMapping(path = "/update", method = RequestMethod.PUT)
-    public Book updateBook(@RequestBody Book book){
+    public BookDTO updateBook(@RequestBody BookDTO book){
         return bookService.update(book);
     }
 
@@ -40,8 +40,4 @@ public class BookController {
         bookService.delete(id);
     }
 
-    @RequestMapping(path = "/byAuthor/{authorId}", method = RequestMethod.GET)
-    public List<BookDTO> getByAuthor(@PathVariable Long authorId){
-        return bookService.getByAuthor(authorId);
-    }
 }

@@ -2,15 +2,19 @@ package com.epam.library.dao.dto;
 
 import com.epam.library.dao.entities.Book;
 
+import javax.validation.constraints.NotNull;
+
 public class BookDTO {
-    private long id;
+    private Long id;
+
+    @NotNull
     private String title;
     private String author;
 
     public BookDTO() {
     }
 
-    public BookDTO(int id, String title, String author) {
+    public BookDTO(Long id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -22,11 +26,11 @@ public class BookDTO {
         author = book.getAuthor().getName();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
